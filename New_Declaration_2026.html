@@ -835,26 +835,6 @@ async function buildPDF(declNum,prop,empName,date,iban,swift,message,lineData,tG
     }
   }
 
-  // Signature block — its own final page.
-  const sigDoc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4',compress:true});
-  registerMontserratInDoc(sigDoc);
-  (function(){
-    let yy=mt;
-    sigDoc.setFontSize(8);sigDoc.setFont(FONT,'normal');sigDoc.setTextColor(80,80,80);
-    sigDoc.text('I confirm that the expenses declared above are accurate, business-related, and supported by the attached receipts.',ml,yy);
-    yy+=10;
-    sigDoc.setDrawColor(180,180,180);sigDoc.setLineWidth(0.3);
-    sigDoc.line(ml,yy,ml+70,yy);
-    sigDoc.line(ml+90,yy,ml+130,yy);
-    sigDoc.line(ml+150,yy,pw-mr,yy);
-    yy+=4;
-    sigDoc.setFontSize(7);sigDoc.setTextColor(160,160,160);
-    sigDoc.text('Signature',ml,yy);
-    sigDoc.text('Date',ml+90,yy);
-    sigDoc.text('Name',ml+150,yy);
-  })();
-  await appendDocPages(sigDoc);
-
   const mergedBytes=await merged.save();
   return{bytes:mergedBytes,pdfFilename:declNum+'-declaration.pdf'};
 }
