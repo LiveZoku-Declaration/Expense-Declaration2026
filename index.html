@@ -768,18 +768,7 @@ async function buildPDF(declNum,prop,empName,date,iban,swift,message,lineData,tG
     doc.text(String(i+1),C.n,y+4);
     doc.text(l.date,C.dt,y+4);
     doc.text(
-2
-l.desc.length > 15
-3
-? l.desc.substring(0,13) + '..'
-4
-: l.desc,
-5
-C.ds,
-6
-y+4
-7
-);
+    doc.text(l.desc.length>15?l.desc.substring(0,13)+'..':l.desc,C.ds,y+4);
     doc.text(l.cat.length>28?l.cat.substring(0,26)+'..':l.cat,C.cat,y+4);
     const ccLabel=l.splitCC?l.splitCC.join('&'):l.cc;
     const glText=(l.gl+'/'+ccLabel).length>14?(l.gl+'/'+ccLabel).substring(0,13)+'..':l.gl+'/'+ccLabel;
